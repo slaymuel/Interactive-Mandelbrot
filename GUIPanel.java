@@ -3,8 +3,13 @@ import java.awt.*;
 import java.awt.event.*;
 
 public class GUIPanel extends JPanel implements KeyListener{	
-	
+
+	JLabel zoomPercentage = new JLabel("");
+
 	public GUIPanel(){
+		GridLayout gridLayout = new GridLayout(0,2);
+		this.setLayout(gridLayout);
+
 		JButton zoomInBtn = new JButton("Zoom in");
 		JButton zoomOutBtn = new JButton("Zoom out");
 		JButton leftBtn = new JButton("Left");
@@ -15,23 +20,25 @@ public class GUIPanel extends JPanel implements KeyListener{
 		JTextField redText = new JTextField(10);
 		JTextField blueText = new JTextField(10);
 		JTextField greenText = new JTextField(10);
+		JLabel redLabel = new JLabel("Red: ");
+		JLabel blueLabel = new JLabel("Blue: ");
+		JLabel greenLabel = new JLabel("Green: ");
+		JLabel zoomLabel = new JLabel("Zoom: ");
+
+		this.add(redLabel);
 		this.add(redText);
+
+		this.add(blueLabel);
 		this.add(blueText);
+
+		this.add(greenLabel);
 		this.add(greenText);
+
+		this.add(zoomLabel);
+		this.add(zoomPercentage);
+
 		this.add(repaintBtn);
-		// this.add(zoomInBtn);
-		// this.add(zoomOutBtn);
-		// this.add(leftBtn);
-		// this.add(rigthBtn);
-		// this.add(upBtn);
-		// this.add(downBtn);
-		//frame.pack();
-		//button.addActionListener(new ActionListener(){
-		//	@Override
-		//	public void actionPerformed(ActionEvent e){
-		//		Mandel.update();
-		//	}
-		//});
+
 		addKeyListener(this);  
 
 		repaintBtn.addActionListener(new ActionListener(){
@@ -51,53 +58,7 @@ public class GUIPanel extends JPanel implements KeyListener{
 			}
 		});
 
-		// zoomInBtn.addActionListener(new ActionListener(){
-		// 	@Override
-		// 	public void actionPerformed(ActionEvent e){
-		// 		Mandel.zoomLevel += 0.5;
-		// 		Mandel.update();
-		// 	}
-		// });
 
-		// zoomOutBtn.addActionListener(new ActionListener(){
-		// 	@Override
-		// 	public void actionPerformed(ActionEvent e){
-		// 		Mandel.zoomLevel -= 0.5;
-		// 		Mandel.update();
-		// 	}
-		// });
-
-		// rigthBtn.addActionListener(new ActionListener(){
-		// 	@Override
-		// 	public void actionPerformed(ActionEvent e){
-		// 		Mandel.position[0] += 0.2;
-		// 		Mandel.update();
-		// 	}
-		// });
-
-		// leftBtn.addActionListener(new ActionListener(){
-		// 	@Override
-		// 	public void actionPerformed(ActionEvent e){
-		// 		Mandel.position[0] -= 0.2;
-		// 		Mandel.update();
-		// 	}
-		// });
-
-		// upBtn.addActionListener(new ActionListener(){
-		// 	@Override
-		// 	public void actionPerformed(ActionEvent e){
-		// 		Mandel.position[1] -= 0.2;
-		// 		Mandel.update();
-		// 	}
-		// });
-
-		// downBtn.addActionListener(new ActionListener(){
-		// 	@Override
-		// 	public void actionPerformed(ActionEvent e){
-		// 		Mandel.position[1] += 0.2;
-		// 		Mandel.update();
-		// 	}
-		// });
 	}
 
     public void addNotify() {
@@ -123,11 +84,13 @@ public class GUIPanel extends JPanel implements KeyListener{
 			Mandel.update();
         }
         if(e.getKeyCode() == KeyEvent.VK_CONTROL){
-		 	Mandel.zoomLevel -= 0.5;
+		 	Mandel.zoomLevel -= 20;
+		 	this.zoomPercentage.setText(Double.toString(Mandel.zoomLevel) + "%");
 		 	Mandel.update();
         }
         if(e.getKeyCode() == KeyEvent.VK_SPACE){
-		 	Mandel.zoomLevel += 0.5;
+		 	Mandel.zoomLevel += 20;
+		 	this.zoomPercentage.setText(Double.toString(Mandel.zoomLevel) + "%");
 		 	Mandel.update();
         }
     }  

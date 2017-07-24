@@ -4,7 +4,7 @@ import java.awt.*;
 
 public class Mandel{
 
-	static double zoomLevel = 1;
+	static double zoomLevel;
 	static MandelPanel mandelPanel;
 	static JFrame frame = new JFrame();
 	static double[] position = {0,0};
@@ -18,7 +18,7 @@ public class Mandel{
 
 		frame.setLayout(new GridLayout(1, 2, 1, 1));
 		//(xstart, xfinish, ystart, yfinish, framesizex, framesizey)
-		zoomLevel = 1;
+		zoomLevel = 100;
 
 		mandelPanel = new MandelPanel(-2, 2, -2, 2, mandelSizeX, mandelSizeY);
 
@@ -38,10 +38,10 @@ public class Mandel{
 
 	public static void update(){
 
-		double xStart = (position[0]-2)/zoomLevel;
-		double xFinish = (position[0]+2)/zoomLevel;
-		double yStart = (position[1]-2.0)/zoomLevel;
-		double yFinish = (position[1]+2.0)/zoomLevel;
+		double xStart = (position[0]-2.0) / (zoomLevel/100);
+		double xFinish = (position[0]+2.0) / (zoomLevel/100);
+		double yStart = (position[1]-2.0) / (zoomLevel/100);
+		double yFinish = (position[1]+2.0) / (zoomLevel/100);
 
 		drawMandel(xStart, xFinish, yStart, yFinish, mandelSizeX, mandelSizeY);
 	}
